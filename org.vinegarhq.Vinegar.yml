@@ -107,7 +107,7 @@ modules:
   - name: vinegar
     buildsystem: simple
     build-commands:
-      - make install FLATPAK="org.vinegarhq.Vinegar" GO=$GOROOT/bin/go PREFIX=/app
+      - make install FLATPAK=org.vinegarhq.Vinegar GO=$GOROOT/bin/go PREFIX=/app
       - install -Dm644 org.vinegarhq.Vinegar.desktop -t /app/share/applications
       - install -Dm644 org.vinegarhq.Vinegar.metainfo.xml -t /app/share/metainfo
       - install -Dm644 catglass.svg /app/share/icons/hicolor/scalable/apps/org.vinegarhq.Vinegar.svg
