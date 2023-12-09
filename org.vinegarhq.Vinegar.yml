@@ -114,8 +114,8 @@ modules:
       - install -Dm644 org.vinegarhq.Vinegar.png /app/share/icons/hicolor/128x128/apps/org.vinegarhq.Vinegar.png
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/releases/download/v1.5.8/vinegar-v1.5.8.tar.xz
-        sha256: 6bf2c9ecc62605e515cbd2fc0cef1ca08effa934be58ea72b4047cc44b7aa4bf
+        url: https://github.com/vinegarhq/vinegar/releases/download/v1.5.9/vinegar-v1.5.9.tar.xz
+        sha256: b241e371d29d05568bd720820e3d83300516c476760b917057c45e0ab489a89e
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
@@ -262,13 +262,10 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/8.x/wine-8.18.tar.xz
-        sha256: 30faef14acf70fd5f739d2fece3432839f1f7dd2d3624bcc3662c3b1b83260db
+        url: https://dl.winehq.org/wine/source/8.x/wine-8.21.tar.xz
+        sha256: 02d6493f348168268669b62d4795df5b335be9ae06229c68f388a093d0d6b61d
         x-addons-url: &wine-addons-url >-
           https://source.winehq.org/git/wine.git/blob_plain/refs/heads/stable:/dlls/appwiz.cpl/addons.c
-          #- type: patch
-          #paths:
-          #- patches/wine/modMsgBoxA.patch
       - type: patch
         paths:
           - patches/wine/segregrevert.patch
