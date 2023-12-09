@@ -23,6 +23,20 @@
 	  </screenshot>
 	</screenshots>
 	<releases>
+		<release version="1.5.9" date="2023-12-09">
+			<description>
+				<ul>
+					<li>Set binary environment during vinegar run-time (fixed #265)</li>
+					<li>Set env OBS_VKCAPTURE by default for player by Jrelvas</li>
+					<li>Add new "GameMode" option which implements org.freedesktop.portal.GameMode by Jrelvas</li>
+					<li>Use card PCI discriminator for PRIME</li>
+					<li>Removed vinegar install-webview2</li>
+					<li>Set Roblox renderer during configuration initialization for Binaries, fixes nil map panics</li>
+					<li>Fix setting Studio Environment or FFlags</li>
+					<li>Introduce Merlin hardware data submission with vinegar submit</li>
+				</ul>
+			</description>
+		</release>
 		<release version="1.5.8" date="2023-11-03">
 			<description>
 				<ul>
