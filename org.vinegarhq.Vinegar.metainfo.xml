@@ -23,6 +23,18 @@
 	  </screenshot>
 	</screenshots>
 	<releases>
+		<release version="1.6.0" date="2023-12-21">
+				<description>
+				<ul>
+					<li>Dropped Global ([global]) configuration directive. Please use [env] as opposed to [global.env], and move your global options to each binary ([player] and [studio]) as needed</li>
+					<li>nosplash support is dropped (build-time splash, splash can still be disabled via configuration)</li>
+					<li>Require AVX before doing anything, if AVX is not present, vinegar will immediately exit with a dialog message.</li>
+					<li>Switched to the drpc discord rpc library, fixes some problems such as Flatpak discord RPC.</li>
+					<li>Error dialog now appears upon Binary failure</li>
+					<li>Vinegar will ask the user if they would like to submit hardware information to Merlin via dialog</li>
+				</ul>
+			</description>
+		</release>
 		<release version="1.5.9" date="2023-12-09">
 			<description>
 				<ul>
