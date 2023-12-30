@@ -1,0 +1,106 @@
+From e4d7f03ab46ad7fbdd667ccb172bfc63a59872d5 Mon Sep 17 00:00:00 2001
+From: sewn <sewn@disroot.org>
+Date: Sat, 30 Dec 2023 09:06:55 +0300
+Subject: [PATCH] Cleanup
+
+---
+diff --git a/org.vinegarhq.Vinegar.yml b/org.vinegarhq.Vinegar.yml
+index 969d78e..236a699 100755
+--- a/org.vinegarhq.Vinegar.yml
++++ b/org.vinegarhq.Vinegar.yml
+@@ -21,7 +21,6 @@ finish-args:
+   #- --device=dri # Uncomment if --device=all is removed/commented to fix graphics issues
+   - --allow=devel # Necessary for VMProtect to function.
+   - --socket=pulseaudio
+-  - --allow=multiarch
+   - --device=all # Necessary for controller support (important on Steam Deck)
+   - --env=WINEDLLPATH=/app/dlls/lib32:/app/dlls/lib
+   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib32/gstreamer-1.0:/app/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
+@@ -80,8 +79,6 @@ cleanup:
+ build-options:
+   append-path: /usr/lib/sdk/mingw-w64/bin
+   env:
+-    - PERL5LIB=/app/lib/perl5/
+-    - PERL_MM_OPT=INSTALL_BASE=/app
+     - GOBIN=/app/bin
+     - GOROOT=/usr/lib/sdk/golang
+ 
+@@ -91,11 +88,11 @@ modules:
+     build-commands:
+       - mkdir -p ${FLATPAK_DEST}/{,lib/debug/}lib/i386-linux-gnu/GL
+       - mkdir -p ${FLATPAK_DEST}/dlls
+-      - mkdir /app/dlls/lib -p
+-      - mkdir /app/dlls/lib32 -p
+-      - mkdir -p /app/lib32
+-      - mkdir -p /app/lib/i386-linux-gnu
+-      - install -Dm644 ld.so.conf -t /app/etc/
++      - mkdir ${FLATPAK_DEST}/dlls/lib -p
++      #- mkdir ${FLATPAK_DEST}/dlls/lib32 -p
++      #- mkdir -p ${FLATPAK_DEST}/lib32
++      #- mkdir -p ${FLATPAK_DEST}/lib/i386-linux-gnu
++      - install -Dm644 ld.so.conf -t {FLATPAK_DEST}/etc/
+       - |
+         for i in {0..9}; do
+           test -S $XDG_RUNTIME_DIR/discord-ipc-$i || ln -sf {app/com.discordapp.Discord,$XDG_RUNTIME_DIR}/discord-ipc-$i;
+@@ -107,11 +104,7 @@ modules:
+   - name: vinegar
+     buildsystem: simple
+     build-commands:
+-      - make install FLATPAK=org.vinegarhq.Vinegar GO=$GOROOT/bin/go PREFIX=/app
+-      - install -Dm644 org.vinegarhq.Vinegar.desktop -t /app/share/applications
+-      - install -Dm644 org.vinegarhq.Vinegar.metainfo.xml -t /app/share/metainfo
+-      - install -Dm644 catglass.svg /app/share/icons/hicolor/scalable/apps/org.vinegarhq.Vinegar.svg
+-      - install -Dm644 org.vinegarhq.Vinegar.png /app/share/icons/hicolor/128x128/apps/org.vinegarhq.Vinegar.png
++      - make install GO=$GOROOT/bin/go PREFIX=/app
+     sources:
+       - type: archive
+         url: https://github.com/vinegarhq/vinegar/releases/download/v1.6.0/vinegar-v1.6.0.tar.xz
+@@ -194,20 +187,6 @@ modules:
+               timestamp-query: .published_at
+               url-query: .assets[] | select(.name=="eudev-\($version).tar.gz") | .browser_download_url
+ 
+-#  - name: libusb-32bit
+-#    build-options:
+-#      arch:
+-#        x86_64: *compat_i386_opts
+-#    sources: *libusb-sources
+-#    modules:
+-#      - name: eudev-32bit
+-#        build-options:
+-#          arch:
+-#            x86_64: *compat_i386_opts
+-#        cleanup: *eudev-cleanup
+-#        sources: *eudev-sources
+-
+-
+   - name: vkd3d
+     sources:
+       - type: archive
+@@ -230,13 +209,9 @@ modules:
+               type: git
+               tag-pattern: ^sdk-([\d.]+)$
+ 
+-#  - name: vkd3d-32bit
+-#    build-options:
+-#      arch:
+-#        x86_64: *compat_i386_opts
+-#      sources: *vkd3d-sources
+-
+   - name: wine
++    post-install:
++      - ln -s /app/bin/wine64 /app/bin/wine
+     build-options:
+       arch:
+         x86_64:
+@@ -280,11 +255,6 @@ modules:
+         paths:
+           - patches/wine/childwindow.patch
+ 
+-  - name: wine64to32
+-    buildsystem: simple
+-    build-commands:
+-      - ln -s /app/bin/wine64 /app/bin/wine
+-
+   # Modified from org.winehq.Wine
+   - name: wine-mono
+     buildsystem: simple
