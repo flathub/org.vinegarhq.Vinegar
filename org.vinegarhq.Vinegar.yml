@@ -8,8 +8,6 @@ x-gl-versions: &gl-versions 23.08;1.4
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
-  - org.freedesktop.Sdk.Compat.i386
-  - org.freedesktop.Sdk.Extension.toolchain-i386
   - org.freedesktop.Sdk.Extension.mingw-w64
 command: vinegar
 
@@ -22,41 +20,16 @@ finish-args:
   - --allow=devel # Necessary for VMProtect to function.
   - --socket=pulseaudio
   - --device=all # Necessary for controller support (important on Steam Deck)
-  - --env=WINEDLLPATH=/app/dlls/lib32:/app/dlls/lib
-  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib32/gstreamer-1.0:/app/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
+  - --env=WINEDLLPATH=/app/dlls/lib
+  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
   - --env=EDITOR=nano
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/:/usr/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin/:/usr/lib/extensions/vulkan/gamescope/bin/
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
 add-extensions:
-  org.freedesktop.Platform.Compat.i386:
-    directory: lib/i386-linux-gnu
-    version: '23.08'
-  org.freedesktop.Platform.GL32:
-    directory: lib/i386-linux-gnu/GL
-    version: '1.4'
-    versions: 23.08;1.4
-    subdirectories: true
-    no-autodownload: true
-    autodelete: false
-    add-ld-path: lib
-    merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
-    download-if: active-gl-driver
-    enable-if: active-gl-driver
   org.winehq.Wine.gecko:
     directory: share/wine/gecko
   org.winehq.Wine.mono:
     directory: share/wine/mono
-
-x-compat-i386-opts: &compat_i386_opts
-  prepend-pkg-config-path: /app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig
-  # Some autotools-based builds will fail if -L/app/lib32 isn't first
-  ldflags: -L/app/lib32 -Wl,-rpath-link=/app/lib32 -Wl,-z,relro,-z,now -Wl,--as-needed
-  ldflags-override: true
-  append-path: /usr/lib/sdk/toolchain-i386/bin
-  env:
-    CC: ccache i686-unknown-linux-gnu-gcc
-    CXX: ccache i686-unknown-linux-gnu-g++
-  libdir: /app/lib32
 
 separate-locales: false
 cleanup:
@@ -74,7 +47,6 @@ cleanup:
   - /bin/wrc
   - /include/wine
   - /lib/wine/*.def
-  - /lib32/wine/*.def
 
 build-options:
   append-path: /usr/lib/sdk/mingw-w64/bin
@@ -86,12 +58,9 @@ modules:
   - name: bundle-setup
     buildsystem: simple
     build-commands:
-      - mkdir -p ${FLATPAK_DEST}/{,lib/debug/}lib/i386-linux-gnu/GL
+      - mkdir -p ${FLATPAK_DEST}/{,lib/debug/}/
       - mkdir -p ${FLATPAK_DEST}/dlls
       - mkdir ${FLATPAK_DEST}/dlls/lib -p
-      #- mkdir ${FLATPAK_DEST}/dlls/lib32 -p
-      #- mkdir -p ${FLATPAK_DEST}/lib32
-      #- mkdir -p ${FLATPAK_DEST}/lib/i386-linux-gnu
       - install -Dm644 ld.so.conf -t {FLATPAK_DEST}/etc/
       - |
         for i in {0..9}; do
@@ -136,10 +105,6 @@ modules:
           type: json
           url: https://api.github.com/repos/FeralInteractive/gamemode/releases/latest
           tag-query: .tag_name
-  - name: gamemode-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
     buildsystem: meson
     config-opts:
       - -Dwith-sd-bus-provider=no-daemon
@@ -217,7 +182,7 @@ modules:
         x86_64:
           config-opts:
             - --enable-win64
-            - --with-mingw=ccache x86_64-w64-mingw32-gcc
+            - --with-mingw=ccache x86_64-w64-mingw64-gcc
           libdir: /app/lib
       env:
         LIBDIR: lib
