@@ -102,9 +102,9 @@ modules:
             #commands:
             #- staging/patchinstall.py --destdir=. --all
             #disabled until next staging
-      - type: patch
-        paths:
-          - patches/wine/childwindow.patch
+            #- type: patch
+            #paths:
+            #- patches/wine/childwindow.patch
 
   # Modified from org.winehq.Wine
   - name: wine-mono
