@@ -98,9 +98,10 @@ modules:
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
-      - type: shell
-        commands:
-          - staging/patchinstall.py --destdir=. --all
+            #- type: shell
+            #commands:
+            #- staging/patchinstall.py --destdir=. --all
+            #disabled until next staging
       - type: patch
         paths:
           - patches/wine/childwindow.patch
