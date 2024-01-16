@@ -80,13 +80,16 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/8.x/wine-8.18.tar.xz
-        sha256: 30faef14acf70fd5f739d2fece3432839f1f7dd2d3624bcc3662c3b1b83260db
+        url: https://dl.winehq.org/wine/source/9.0/wine-9.0.tar.xz
+        sha256: 7cfd090a5395f5b76d95bb5defac8a312c8de4c070c1163b8b58da38330ca6ee 
         x-addons-url: &wine-addons-url >-
           https://source.winehq.org/git/wine.git/blob_plain/refs/heads/stable:/dlls/appwiz.cpl/addons.c
       - type: patch
         paths:
           - patches/wine/segregrevert.patch
+      - type: patch
+        paths:
+          - patches/wine/mouselock.patch
       - type: git
         url: https://gitlab.winehq.org/wine/wine-staging.git
         commit: a5625909787122a39f2795a9ebf553a66c6f0a92
@@ -109,7 +112,7 @@ modules:
       - cp -a wine-mono-* ${FLATPAK_DEST}/share/wine/mono/
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/wine-mono/8.0.0/wine-mono-8.0.0-x86.tar.xz
+        url: https://dl.winehq.org/wine/wine-mono/8.1.0/wine-mono-8.1.0-x86.tar.xz
         strip-components: 0
-        sha256: 14c7d76780b79dc62d8ed9d1759e7adcfa332bb2406e2e694dee7b2128cc7a77
+        sha256: 4e3e8a40729e4c9e3e9e651cebe4f1aed8f9a4d22e991e6cd24608687f0eedd4
         # no x-checker because Wine version and Wine Mono version have to be synced together.
