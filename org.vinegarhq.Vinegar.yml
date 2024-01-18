@@ -72,8 +72,8 @@ modules:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/releases/download/v1.6.0/vinegar-v1.6.0.tar.xz
-        sha256: 78b4f0b5fcb49cd0804e1382160c055fb3a87369d332b8246063141ccbb5a0f5
+        url: https://github.com/vinegarhq/vinegar/releases/download/v1.6.1/vinegar-v1.6.1.tar.xz
+        sha256: dbef5a918171607633080ebb2d9fa499ace72138e784c0e2dd18c10d91911221
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
