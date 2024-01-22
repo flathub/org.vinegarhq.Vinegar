@@ -84,17 +84,16 @@ modules:
         sha256: 7cfd090a5395f5b76d95bb5defac8a312c8de4c070c1163b8b58da38330ca6ee 
         x-addons-url: &wine-addons-url >-
           https://source.winehq.org/git/wine.git/blob_plain/refs/heads/stable:/dlls/appwiz.cpl/addons.c
-#      - type: patch
-#        paths:
-#          - patches/wine/segregrevert.patch
+      - type: patch
+        paths:
+          - patches/wine/segregrevert.patch
       - type: patch
         paths:
           - patches/wine/mouselock.patch
-     #- type: git
-        #url: https://gitlab.winehq.org/wine/wine-staging.git
-        #commit: a5625909787122a39f2795a9ebf553a66c6f0a92
-        #tag: v8.18
-        #disabled until next staging
+     - type: git
+       url: https://gitlab.winehq.org/wine/wine-staging.git
+       commit: cab93f47b8d095eb968bb3c7debf9117a91307ce
+       tag: v9.0
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
