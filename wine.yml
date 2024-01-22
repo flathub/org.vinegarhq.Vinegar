@@ -90,10 +90,10 @@ modules:
       - type: patch
         paths:
           - patches/wine/mouselock.patch
-     - type: git
-       url: https://gitlab.winehq.org/wine/wine-staging.git
-       commit: cab93f47b8d095eb968bb3c7debf9117a91307ce
-       tag: v9.0
+      - type: git
+        url: https://gitlab.winehq.org/wine/wine-staging.git
+        commit: cab93f47b8d095eb968bb3c7debf9117a91307ce
+        tag: v9.0
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
