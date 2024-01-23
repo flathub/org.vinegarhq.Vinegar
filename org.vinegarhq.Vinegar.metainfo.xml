@@ -27,8 +27,6 @@
 				<description>
 				<ul>
 					<li>Fixed default channel check for manifest path</li>
-					<li>Added matrix badge</li>
-					<li>Makefile now removes svg on uninstallation</li>
 					<li>Fixed package downloading</li>
 					<li>AVX block is now a warning</li>
 					<li>Changed sysinfo output</li>
