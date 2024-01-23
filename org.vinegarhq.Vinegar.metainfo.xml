@@ -29,8 +29,6 @@
 					<li>Fixed default channel check for manifest path</li>
 					<li>Fixed package downloading</li>
 					<li>AVX block is now a warning</li>
-					<li>Changed sysinfo output</li>
-					<li>Unhid the .desktop for compatibility with flathub rules</li>
 				</ul>
 			</description>
 		</release><release version="1.6.0" date="2023-12-21">
