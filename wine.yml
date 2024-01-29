@@ -89,20 +89,20 @@ modules:
           - patches/wine/segregrevert.patch
       - type: patch
         paths:
-          - patches/wine/mouselock.patch
-            #- type: git
-            #url: https://gitlab.winehq.org/wine/wine-staging.git
-            #commit: cab93f47b8d095eb968bb3c7debf9117a91307ce
-            #tag: v9.0
+      - patches/wine/mouselock.patch
+      - type: git
+        url: https://gitlab.winehq.org/wine/wine-staging.git
+        commit: cab93f47b8d095eb968bb3c7debf9117a91307ce
+        tag: v9.0
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
-            #- type: shell
-            #commands:
-            #- staging/patchinstall.py --destdir=. --all
-            #- type: patch
-            #paths:
-            #- patches/wine/childwindow.patch
+      - type: shell
+        commands:
+          - staging/patchinstall.py --destdir=. --all
+      - type: patch
+        paths:
+            - patches/wine/childwindow.patch
 
   # Modified from org.winehq.Wine
   - name: wine-mono
