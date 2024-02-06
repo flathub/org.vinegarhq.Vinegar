@@ -23,7 +23,15 @@
 	  </screenshot>
 	</screenshots>
 	<releases>
-		<release version="1.6.0" date="2023-12-21">
+		<release version="1.6.1" date="2024-1-18">
+				<description>
+				<ul>
+					<li>Fixed default channel check for manifest path</li>
+					<li>Fixed package downloading</li>
+					<li>AVX block is now a warning</li>
+				</ul>
+			</description>
+		</release><release version="1.6.0" date="2023-12-21">
 				<description>
 				<ul>
 					<li>Dropped Global ([global]) configuration directive. Please use [env] as opposed to [global.env], and move your global options to each binary ([player] and [studio]) as needed</li>
@@ -46,41 +54,6 @@
 					<li>Set Roblox renderer during configuration initialization for Binaries, fixes nil map panics</li>
 					<li>Fix setting Studio Environment or FFlags</li>
 					<li>Introduce Merlin hardware data submission with vinegar submit</li>
-				</ul>
-			</description>
-		</release>
-		<release version="1.5.8" date="2023-11-03">
-			<description>
-				<ul>
-					<li>Fixes "player: dxvk is only valid with d3d renderers" bug</li>
-					<li>Allow multi-gpu systems to use PRIME properly</li>
-				</ul>
-			</description>
-		</release>
-		<release version="1.5.7" date="2023-11-03">
-			<description>
-				<ul>
-					<li>Fixed panic on multiple-card systems</li>
-					<li>Added error checking for if DXVK is enabled and using non-dxvk compatible renderer</li>
-				</ul>
-			</description>
-		</release>
-		<release version="1.5.6" date="2023-11-01">
-			<description>
-				<ul>
-					<li>Added automatic GPU handling (such as PRIME)</li>
-					<li>Added a new Splash style</li>
-					<li>Added system information grabbing</li>
-					<li>Klill Wineprefix when splash window is ordered to exit before launching Roblox</li>
-				</ul>
-			</description>
-		</release>
-		<release version="1.5.4" date="2023-10-13">
-			<description>
-				<ul>
-					<li>Added Discord rich presence with BloxstrapRPC</li>
-					<li>Fix Studio's bold fonts</li>
-					<li>Merged Roblox's logs with Vinegar</li>
 				</ul>
 			</description>
 		</release>
