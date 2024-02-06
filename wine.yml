@@ -93,9 +93,9 @@ modules:
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
-      - type: shell
-        commands:
-          - rm README.md
+            #      - type: shell
+            #        commands:
+            #          - rm README.md
       # DON'T REMOVE THIS RM. STAGING WON'T APPLY WITHOUT IT...
       - type: git
         url: https://gitlab.winehq.org/wine/wine-staging.git
