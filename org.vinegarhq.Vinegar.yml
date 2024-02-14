@@ -13,8 +13,8 @@ command: vinegar
 
 finish-args:
   - --share=network
-  - --socket=fallback-x11 # Will be removed or replaced with fallback-x11 once Wine is improved
-  - --socket=wayland
+  - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
+    #  - --socket=wayland
   - --share=ipc
   #- --device=dri # Uncomment if --device=all is removed/commented to fix graphics issues
   - --allow=devel # Necessary for VMProtect to function.
