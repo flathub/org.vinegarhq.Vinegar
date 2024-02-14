@@ -80,30 +80,34 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/8.x/wine-8.18.tar.xz 
-        sha256: 30faef14acf70fd5f739d2fece3432839f1f7dd2d3624bcc3662c3b1b83260db
+        url: https://dl.winehq.org/wine/source/9.x/wine-9.1.tar.xz
+        sha256: 01b3b91b6fc35cabe93b28f190a237ba95c8ac70c436d919586deaa3da258fff
         x-addons-url: &wine-addons-url >-
           https://source.winehq.org/git/wine.git/blob_plain/refs/heads/stable:/dlls/appwiz.cpl/addons.c
-      - type: patch
-        paths:
-          - patches/wine/segregrevert.patch
-            #      - type: patch
-            #        paths:
-            #          - patches/wine/mouselock.patch
-      - type: patch
-        paths:
-          - patches/wine/loader-prefer-winedllpath.patch
-            #      - type: shell
-            #        commands:
-            #          - rm README.md
+      - type: shell
+        commands:
+          - rm README.md
       # DON'T REMOVE THIS RM. STAGING WON'T APPLY WITHOUT IT...
+
       - type: git
         url: https://gitlab.winehq.org/wine/wine-staging.git
-        commit: a5625909787122a39f2795a9ebf553a66c6f0a92
-        tag: v8.18
+        commit: 53c687fd47ed3febd09e797a9e29662ba0b805e1
+        tag: v9.1
+      
+            
       - type: shell
         commands:
           - staging/patchinstall.py --destdir=. --all
+
+      - type: patch
+        paths:
+          - patches/wine/segregrevert.patch
+      - type: patch
+        paths:
+          - patches/wine/mouselock.patch
+      - type: patch
+        paths:
+          - patches/wine/loader-prefer-winedllpath.patch
       - type: patch
         paths:
           - patches/wine/childwindow.patch
@@ -116,9 +120,9 @@ modules:
       - cp -a wine-mono-* ${FLATPAK_DEST}/share/wine/mono/
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/wine-mono/8.0.0/wine-mono-8.0.0-x86.tar.xz
+        url: https://dl.winehq.org/wine/wine-mono/8.1.0/wine-mono-8.1.0-x86.tar.xz
         strip-components: 0
-        sha256: 14c7d76780b79dc62d8ed9d1759e7adcfa332bb2406e2e694dee7b2128cc7a77
+        sha256: 4e3e8a40729e4c9e3e9e651cebe4f1aed8f9a4d22e991e6cd24608687f0eedd4
         # no x-checker because Wine version and Wine Mono version have to be synced together.
 
   # Modified from org.winehq.Wine
