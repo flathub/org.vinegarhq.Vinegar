@@ -80,8 +80,8 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/9.x/wine-9.1.tar.xz
-        sha256: 01b3b91b6fc35cabe93b28f190a237ba95c8ac70c436d919586deaa3da258fff
+        url: https://dl.winehq.org/wine/source/9.x/wine-9.2.tar.xz
+        sha256: 8281c5a082cc47ac3c2c91ceaade5f17396553b39adcb32e741253865b658162
         x-addons-url: &wine-addons-url >-
           https://source.winehq.org/git/wine.git/blob_plain/refs/heads/stable:/dlls/appwiz.cpl/addons.c
       - type: shell
@@ -91,8 +91,8 @@ modules:
 
       - type: git
         url: https://gitlab.winehq.org/wine/wine-staging.git
-        commit: 53c687fd47ed3febd09e797a9e29662ba0b805e1
-        tag: v9.1
+        commit: dc3b4e6589e4536eb7094845671a2092680b3460
+        tag: v9.2
       
             
       - type: shell
@@ -120,9 +120,9 @@ modules:
       - cp -a wine-mono-* ${FLATPAK_DEST}/share/wine/mono/
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/wine-mono/8.1.0/wine-mono-8.1.0-x86.tar.xz
+        url: https://dl.winehq.org/wine/wine-mono/9.0.0/wine-mono-9.0.0-x86.tar.xz
         strip-components: 0
-        sha256: 4e3e8a40729e4c9e3e9e651cebe4f1aed8f9a4d22e991e6cd24608687f0eedd4
+        sha256: d73d440c08ebd67c93fbd6534f4f1b4e98aa07342f9c7d98c8aaeb74755eb9cf
         # no x-checker because Wine version and Wine Mono version have to be synced together.
 
   # Modified from org.winehq.Wine
