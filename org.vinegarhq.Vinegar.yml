@@ -62,12 +62,9 @@ modules:
       - mkdir -p ${FLATPAK_DEST}/dlls
       - mkdir ${FLATPAK_DEST}/dlls/lib -p
       - install -Dm644 ld.so.conf -t {FLATPAK_DEST}/etc/
-      - cp org.vinegarhq.Vinegar.metainfo.xml /app/share/metainfo/org.vinegarhq.Vinegar.metainfo.xml
     sources:
       - type: file
         path: ld.so.conf
-      - type: file
-        path: org.vinegarhq.Vinegar.metainfo.xml 
 
   - name: vinegar
     buildsystem: simple
