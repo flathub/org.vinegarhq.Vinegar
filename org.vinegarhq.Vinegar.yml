@@ -79,6 +79,9 @@ modules:
           url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
           version-query: .tag_name
           url-query: .assets[] | select(.name=="vinegar-\($version).tar.xz") | .browser_download_url
+      - type: patch
+        paths:
+          - patches/appstream.patch
   - name: gamemode
     buildsystem: meson
     config-opts:
@@ -104,5 +107,4 @@ modules:
       - install -Dm755 data/gamemoderun -t /app/bin
     sources: *gamemode-sources
   
-      #  - wine.yml
-      #  disabled till i can get wtf is going on with appstream
+  - wine.yml
