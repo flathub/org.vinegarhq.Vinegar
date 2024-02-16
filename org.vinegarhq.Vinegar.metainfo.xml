@@ -8,7 +8,12 @@
 	<description>
 		<p>Vinegar is a fast and robust bootstrapper for Roblox that has many ease-of-use features.</p>
 	</description>
-	<developer_name>VinegarHQ</developer_name>
+	<developer id = "vinegarhq.org">
+		<name>VinegarHQ</name>
+	</developer>
+	<launchable type="desktop-id">org.vinegarhq.Vinegar.desktop</launchable>
+	<launchable type="desktop-id">org.vinegarhq.Vinegar.app.desktop</launchable>
+	<launchable type="desktop-id">org.vinegarhq.Vinegar.studio.desktop</launchable>
 	<categories>
 		<category>Game</category>
 	</categories>
