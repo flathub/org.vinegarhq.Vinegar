@@ -72,16 +72,13 @@ modules:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/releases/download/v1.7.3/vinegar-v1.7.3.tar.xz
-        sha256: 6d8cf5f4fea17560c7cca601ad4da6ed305318e27d00d8e9589d0a9407632aeb
+        url: https://github.com/vinegarhq/vinegar/releases/download/v1.7.4/vinegar-v1.7.4.tar.xz
+        sha256: 035761d56bb4a6605aa3df43140731623f381243385ac97836ce43b1b4435212
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
           version-query: .tag_name
           url-query: .assets[] | select(.name=="vinegar-\($version).tar.xz") | .browser_download_url
-      - type: patch
-        paths:
-          - patches/appstream.patch
   - name: gamemode
     buildsystem: meson
     config-opts:
