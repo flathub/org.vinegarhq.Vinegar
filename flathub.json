@@ -1,4 +1,4 @@
 {
-	"only-arches": ["x86_64"]
+	"only-arches": ["x86_64"],
         "end-of-life": "This application is no longer maintained because Roblox Player is now blocked on Wine"
 }
