@@ -73,7 +73,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/vinegarhq/vinegar/releases/download/v1.7.5/vinegar-v1.7.5.tar.xz
-        sha256: 9d4baa159908ff8203eabe83a2e1cbe33fff864e9f89f67df3de730e3191a6a5 
+        sha256: b79b5903b3063793cda0a0c7c23e3972f4914aa59ae8be4bfbd5db66766d9b0d 
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
