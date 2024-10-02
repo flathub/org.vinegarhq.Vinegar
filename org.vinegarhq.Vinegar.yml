@@ -14,9 +14,7 @@ command: vinegar
 finish-args:
   - --share=network
   - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
-    #  - --socket=wayland
   - --share=ipc
-  #- --device=dri # Uncomment if --device=all is removed/commented to fix graphics issues
   - --allow=devel # Necessary for VMProtect to function.
   - --socket=pulseaudio
   - --device=all # Necessary for controller support (important on Steam Deck)
@@ -25,11 +23,6 @@ finish-args:
   - --env=EDITOR=nano
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/:/usr/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin/:/usr/lib/extensions/vulkan/gamescope/bin/
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
-add-extensions:
-  org.winehq.Wine.gecko:
-    directory: share/wine/gecko
-  org.winehq.Wine.mono:
-    directory: share/wine/mono
 
 separate-locales: false
 cleanup:
@@ -72,8 +65,8 @@ modules:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/releases/download/v1.7.5/vinegar-v1.7.5.tar.xz
-        sha256: b79b5903b3063793cda0a0c7c23e3972f4914aa59ae8be4bfbd5db66766d9b0d 
+        url: https://github.com/vinegarhq/vinegar/releases/download/v1.7.6/vinegar-v1.7.6.tar.xz
+        sha256: 9c13fb445b07e75d6fe3ede5580085a52e8e77d836f5b32e8032b6c61590f57b
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
@@ -87,8 +80,8 @@ modules:
     sources: &gamemode-sources
       - type: git
         url: https://github.com/FeralInteractive/gamemode
-        commit: 5180d89e66830d87f69687b95fb86f622552b94b
-        tag: 1.8.1
+        commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
+        tag: 1.8.2
         x-checker-data:
           type: json
           url: https://api.github.com/repos/FeralInteractive/gamemode/releases/latest
