@@ -1,45 +1,21 @@
+# Modified from org.winehq.Wine
 name: modules
 buildsystem: simple
 build-commands: []
 modules:
-  - name: eudev
-    cleanup:
-      - /bin
-      - /sbin
-      - /lib*/udev
-    post-install:
-      - udevadm hwdb --update --usr
-    sources:
-      - type: archive
-        url: https://github.com/eudev-project/eudev/releases/download/v3.2.14/eudev-3.2.14.tar.gz
-        sha256: 8da4319102f24abbf7fff5ce9c416af848df163b29590e666d334cc1927f006f
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/gentoo/eudev/releases/latest
-          tag-query: .tag_name
-          version-query: $tag | sub("^[vV]"; "")
-          timestamp-query: .published_at
-          url-query: .assets[] | select(.name=="eudev-\($version).tar.gz") | .browser_download_url
   - name: libusb
     sources:
       - type: archive
-        url: https://github.com/libusb/libusb/releases/download/v1.0.26/libusb-1.0.26.tar.bz2
-        sha256: 12ce7a61fc9854d1d2a1ffe095f7b5fac19ddba095c259e6067a46500381b5a5
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/libusb/libusb/releases/latest
-          tag-query: .tag_name
-          version-query: $tag | sub("^[vV]"; "")
-          timestamp-query: .published_at
-          url-query: .assets[] | select(.name=="libusb-\($version).tar.bz2") | .browser_download_url
+        url: https://github.com/libusb/libusb/releases/download/v1.0.27/libusb-1.0.27.tar.bz2
+        sha256: ffaa41d741a8a3bee244ac8e54a72ea05bf2879663c098c82fc5757853441575
 
   - name: vkd3d
     sources:
       - type: archive
-        url: https://dl.winehq.org/vkd3d/source/vkd3d-1.8.tar.xz
-        sha256: e0cec19cc9535715c72ec3a16cdec29dc14d5ccec73526387b5843cf75628ac5
+        url: https://dl.winehq.org/vkd3d/source/vkd3d-1.9.tar.xz
+        sha256: 9d1ebc6f36cccf40cffda3176851f73a0501b90c4d04e782abe79ca703057a4b
     modules:
-      - name: spirv-deps
+      - name: spirv-headers
         buildsystem: cmake-ninja
         builddir: true
         config-opts:
@@ -51,9 +27,6 @@ modules:
             url: https://github.com/KhronosGroup/SPIRV-Headers.git
             tag: sdk-1.3.261.1
             commit: 124a9665e464ef98b8b718d572d5f329311061eb
-            x-checker-data:
-              type: git
-              tag-pattern: ^sdk-([\d.]+)$
 
   - name: wine
     post-install:
@@ -73,6 +46,7 @@ modules:
       - --with-x
       - --with-pulse
       - --with-dbus
+      - --without-hal
       - --without-oss
     make-install-args:
       - LDCONFIG=/bin/true
@@ -80,52 +54,18 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/9.x/wine-9.2.tar.xz
-        sha256: 8281c5a082cc47ac3c2c91ceaade5f17396553b39adcb32e741253865b658162
-        x-addons-url: &wine-addons-url >-
-          https://source.winehq.org/git/wine.git/blob_plain/refs/heads/stable:/dlls/appwiz.cpl/addons.c
-      - type: shell
-        commands:
-          - rm README.md
-      # DON'T REMOVE THIS RM. STAGING WON'T APPLY WITHOUT IT...
-
-      - type: git
-        url: https://gitlab.winehq.org/wine/wine-staging.git
-        commit: dc3b4e6589e4536eb7094845671a2092680b3460
-        tag: v9.2
-      
-            
+        url: https://dl.winehq.org/wine/source/9.x/wine-9.18.tar.xz
+        sha256: 6526f5211c085453bcb642946eb2ce8d1d42a8a4a68168bf2a0d73f32612dd1c
+      - type: archive
+        url: https://gitlab.winehq.org/wine/wine-staging/-/archive/v9.18/wine-staging-v9.18.tar.gz
+        sha256: 8e811be9860da0bc4a9d4ac71b3259e9b512fedbc1d0a7d7dc3f1a11e9dcd5f0
       - type: shell
         commands:
           - staging/patchinstall.py --destdir=. --all
-
-      - type: patch
-        paths:
-          - patches/wine/segregrevert.patch
-      - type: patch
-        paths:
-          - patches/wine/mouselock.patch
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
-      - type: patch
-        paths:
-          - patches/wine/childwindow.patch
 
-  # Modified from org.winehq.Wine
-  - name: wine-mono
-    buildsystem: simple
-    build-commands:
-      - mkdir -p ${FLATPAK_DEST}/share/wine/mono/
-      - cp -a wine-mono-* ${FLATPAK_DEST}/share/wine/mono/
-    sources:
-      - type: archive
-        url: https://dl.winehq.org/wine/wine-mono/9.0.0/wine-mono-9.0.0-x86.tar.xz
-        strip-components: 0
-        sha256: d73d440c08ebd67c93fbd6534f4f1b4e98aa07342f9c7d98c8aaeb74755eb9cf
-        # no x-checker because Wine version and Wine Mono version have to be synced together.
-
-  # Modified from org.winehq.Wine
   - name: winetricks
     no-autogen: true
     make-args:
@@ -137,11 +77,7 @@ modules:
         url: https://github.com/Winetricks/winetricks.git
         tag: '20240105'
         commit: bc91718a5cad45e9f33de9b351a5960d5395bed5
-        x-checker-data:
-          type: git
-          tag-pattern: ^(\d+)$
     modules:
-
       - name: p7zip
         no-autogen: true
         make-args:
@@ -175,7 +111,6 @@ modules:
             commands:
               - ln -sf makefile.linux_x86_asm_gcc_4.X makefile.machine
         modules:
-
           - name: yasm
             buildsystem: cmake-ninja
             sources:
@@ -190,3 +125,4 @@ modules:
           - type: archive
             url: https://www.cabextract.org.uk/cabextract-1.9.1.tar.gz
             sha256: afc253673c8ef316b4d5c29cc4aa8445844bee14afffbe092ee9469405851ca7
+
