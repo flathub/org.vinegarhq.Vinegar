@@ -54,11 +54,11 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/9.x/wine-9.18.tar.xz
-        sha256: 6526f5211c085453bcb642946eb2ce8d1d42a8a4a68168bf2a0d73f32612dd1c
+        url: https://dl.winehq.org/wine/source/9.x/wine-9.22.tar.xz
+        sha256: e150d29742aa54f768ef3e976ed861aaa4f9f48542e409bea902d0f49b359683
       - type: archive
-        url: https://gitlab.winehq.org/wine/wine-staging/-/archive/v9.18/wine-staging-v9.18.tar.gz
-        sha256: 8e811be9860da0bc4a9d4ac71b3259e9b512fedbc1d0a7d7dc3f1a11e9dcd5f0
+        url: https://gitlab.winehq.org/wine/wine-staging/-/archive/v9.22/wine-staging-v9.22.tar.gz
+        sha256: 63529ba1299cd5a1e48971ce57806834af3fcb7aa95d295f2c0ada1ca01bdfe9
       - type: shell
         commands:
           - staging/patchinstall.py --destdir=. --all
