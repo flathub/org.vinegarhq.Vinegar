@@ -16,6 +16,7 @@ finish-args:
   - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
   - --share=ipc
   - --allow=devel # Necessary for VMProtect to function.
+  - --allow=per-app-dev-shm # Necesary for browser login to function.
   - --socket=pulseaudio
   - --device=all # Necessary for controller support (important on Steam Deck)
   - --env=WINEDLLPATH=/app/dlls/lib
