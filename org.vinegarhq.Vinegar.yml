@@ -100,3 +100,4 @@ modules:
     sources: *gamemode-sources
   
   - wine.yml
+  - umu-run.yml
