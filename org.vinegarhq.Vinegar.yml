@@ -16,12 +16,14 @@ finish-args:
   - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
   - --share=ipc
   - --allow=devel # Necessary for VMProtect to function.
+  - --allow=per-app-dev-shm # Required for umu
   - --socket=pulseaudio
   - --device=all # Necessary for controller support (important on Steam Deck)
   - --env=WINEDLLPATH=/app/dlls/lib
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
   - --env=EDITOR=nano
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/:/usr/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin/:/usr/lib/extensions/vulkan/gamescope/bin/
+  - --filesystem=xdg-data/umu:create # Required for umu
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
 
 separate-locales: false
