@@ -13,7 +13,6 @@ finish-args:
   - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
   - --socket=wayland
   - --socket=pulseaudio
-  - --talk-name=org.freedesktop.Flatpak
   - --device=all # Necessary for controller support (important on Steam Deck)
   - --allow=devel # Necessary for VMProtect to function.
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
