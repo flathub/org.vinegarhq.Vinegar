@@ -1,10 +1,9 @@
-# Modified from net.brinkervii.grapejuice and org.winehq.Wine
-
 app-id: org.vinegarhq.Vinegar
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
-x-gl-version: &gl-version '1.4'
-x-gl-versions: &gl-versions 23.08;1.4
+runtime-version: '24.08'
+x-gl-version: '1.4'
+x-gl-versions: 23.08;1.4
+x-gl-merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
@@ -12,18 +11,19 @@ sdk-extensions:
 command: vinegar
 
 finish-args:
-  - --share=network
-  - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
   - --share=ipc
-  - --allow=devel # Necessary for VMProtect to function.
+  - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
+  - --socket=wayland
   - --socket=pulseaudio
   - --device=all # Necessary for controller support (important on Steam Deck)
+  - --share=network
+  - --allow=devel # Necessary for VMProtect to function.
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  - --filesystem=xdg-documents
   - --env=WINEDLLPATH=/app/dlls/lib
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
-  - --env=EDITOR=nano
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/:/usr/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin/:/usr/lib/extensions/vulkan/gamescope/bin/
-  - --filesystem=xdg-run/app/com.discordapp.Discord:create
-
+  
 separate-locales: false
 cleanup:
   - '*.a'
@@ -54,10 +54,6 @@ modules:
       - mkdir -p ${FLATPAK_DEST}/{,lib/debug/}/
       - mkdir -p ${FLATPAK_DEST}/dlls
       - mkdir ${FLATPAK_DEST}/dlls/lib -p
-      - install -Dm644 ld.so.conf -t {FLATPAK_DEST}/etc/
-    sources:
-      - type: file
-        path: ld.so.conf
 
   - name: vinegar
     buildsystem: simple
@@ -72,29 +68,19 @@ modules:
           url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
           version-query: .tag_name
           url-query: .assets[] | select(.name=="vinegar-\($version).tar.xz") | .browser_download_url
+
   - name: gamemode
     buildsystem: meson
     config-opts:
       - -Dwith-sd-bus-provider=no-daemon
+      - -Dwith-util=false
       - -Dwith-examples=false
+    post-install:
+      - install -Dm755 data/gamemoderun -t /app/bin
     sources: &gamemode-sources
       - type: git
         url: https://github.com/FeralInteractive/gamemode
         commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
         tag: 1.8.2
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/FeralInteractive/gamemode/releases/latest
-          tag-query: .tag_name
-    buildsystem: meson
-    config-opts:
-      - -Dwith-sd-bus-provider=no-daemon
-      - -Dwith-examples=false
-    sources: *gamemode-sources
-  - name: gamemoderun
-    buildsystem: simple
-    build-commands:
-      - install -Dm755 data/gamemoderun -t /app/bin
-    sources: *gamemode-sources
-  
+
   - wine.yml
