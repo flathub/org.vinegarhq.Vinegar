@@ -73,8 +73,8 @@ modules:
       - -Dwith-util=false
       - -Dwith-examples=false
     post-install:
-      - install -Dm755 data/gamemoderun -t /app/bin
-    sources: &gamemode-sources
+      - install -Dm0775 -t /app/bin ../data/gamemoderun
+    sources:
       - type: git
         url: https://github.com/FeralInteractive/gamemode
         commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
