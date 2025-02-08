@@ -1,22 +1,20 @@
 app-id: org.vinegarhq.Vinegar
-runtime: org.freedesktop.Platform
-runtime-version: '24.08'
-x-gl-version: '1.4'
-x-gl-versions: 23.08;1.4
-x-gl-merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d
-sdk: org.freedesktop.Sdk
+runtime: org.gnome.Platform
+runtime-version: '47'
+sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
   - org.freedesktop.Sdk.Extension.mingw-w64
 command: vinegar
 
 finish-args:
+  - --share=network
   - --share=ipc
   - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
   - --socket=wayland
   - --socket=pulseaudio
+  - --talk-name=org.freedesktop.Flatpak
   - --device=all # Necessary for controller support (important on Steam Deck)
-  - --share=network
   - --allow=devel # Necessary for VMProtect to function.
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
   - --filesystem=xdg-documents
