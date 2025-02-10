@@ -113,3 +113,10 @@ modules:
             url: https://www.cabextract.org.uk/cabextract-1.11.tar.gz
             sha256: b5546db1155e4c718ff3d4b278573604f30dd64c3c5bfd4657cd089b823a3ac6
 
+  - name: zenity
+    buildsystem: meson
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/zenity/3.41/zenity-3.41.0.tar.xz
+        sha256: 19b676c3510e22badfcc3204062d432ba537402f5e0ae26128c0d90c954037e1
+
