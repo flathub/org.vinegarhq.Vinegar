@@ -42,14 +42,8 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/10.0/wine-10.0.tar.xz
-        sha256: c5e0b3f5f7efafb30e9cd4d9c624b85c583171d33549d933cd3402f341ac3601
-      - type: archive
-        url: https://gitlab.winehq.org/wine/wine-staging/-/archive/v10.0/wine-staging-v10.0.tar.gz
-        sha256: 86912f501afbe05832a6b8da0070f1f1c028209fb3f609c0a137fa2334f3e70b
-      - type: shell
-        commands:
-          - staging/patchinstall.py --destdir=. --all
+        url: https://github.com/ValveSoftware/wine/archive/a4f519f479638bb0b9c5ced9854fa9bb1f457d16.tar.gz
+        sha256: 4db1ef110b0c96790816203d3a4d637b3d035fab864516aee346f86f4e40a2aa
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
