@@ -60,11 +60,6 @@ modules:
       - type: archive
         url: https://github.com/vinegarhq/vinegar/releases/download/v1.8.1/vinegar-v1.8.1.tar.xz
         sha256: 8c9b7b51069e2b768f7cfc6de2c58999b623cac60539a75cf01a39f59cfc1168
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/vinegarhq/vinegar/releases/latest
-          version-query: .tag_name
-          url-query: .assets[] | select(.name=="vinegar-\($version).tar.xz") | .browser_download_url
 
   - name: gamemode
     buildsystem: meson
