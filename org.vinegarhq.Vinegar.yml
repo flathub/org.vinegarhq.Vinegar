@@ -38,28 +38,20 @@ cleanup:
   - /include/wine
   - /lib/wine/*.def
 
-build-options:
-  append-path: /usr/lib/sdk/mingw-w64/bin
-  env:
-    - GOBIN=/app/bin
-    - GOROOT=/usr/lib/sdk/golang
-
 modules:
-  - name: bundle-setup
-    buildsystem: simple
-    build-commands:
-      - mkdir -p ${FLATPAK_DEST}/{,lib/debug/}/
-      - mkdir -p ${FLATPAK_DEST}/dlls
-      - mkdir ${FLATPAK_DEST}/dlls/lib -p
-
   - name: vinegar
     buildsystem: simple
+    build-options:
+      env:
+        GOBIN: /app/bin
+        GOROOT: /usr/lib/sdk/golang
     build-commands:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
-      - type: archive
-        url: https://github.com/vinegarhq/vinegar/releases/download/v1.8.1/vinegar-v1.8.1.tar.xz
-        sha256: 8c9b7b51069e2b768f7cfc6de2c58999b623cac60539a75cf01a39f59cfc1168
+      - type: git
+        url: https://github.com/vinegarhq/vinegar
+        commit: 2af7c7f8e9831556197228e5eb06878135395daa
+      - go.mod.yml
 
   - name: gamemode
     buildsystem: meson
@@ -72,7 +64,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/FeralInteractive/gamemode
-        commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
         tag: 1.8.2
+        commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
 
   - wine.yml
