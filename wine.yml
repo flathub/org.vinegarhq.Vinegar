@@ -8,13 +8,6 @@ modules:
       - type: archive
         url: https://github.com/libusb/libusb/releases/download/v1.0.27/libusb-1.0.27.tar.bz2
         sha256: ffaa41d741a8a3bee244ac8e54a72ea05bf2879663c098c82fc5757853441575
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/libusb/libusb/releases/latest
-          tag-query: .tag_name
-          version-query: $tag | sub("^[vV]"; "")
-          timestamp-query: .published_at
-          url-query: .assets[] | select(.name=="libusb-\($version).tar.bz2") | .browser_download_url
 
   - name: libdrm
     buildsystem: meson
@@ -28,12 +21,7 @@ modules:
     post-install:
       - ln -s /app/bin/wine64 /app/bin/wine
     build-options:
-      arch:
-        x86_64:
-          config-opts:
-            - --enable-win64
-            - --with-mingw=ccache x86_64-w64-mingw64-gcc
-          libdir: /app/lib
+      append-path: /usr/lib/sdk/mingw-w64/bin
       env:
         LIBDIR: lib
     config-opts:
@@ -44,14 +32,17 @@ modules:
       - --with-pulse
       - --with-dbus
       - --without-oss
+      - --enable-win64
+      - --with-mingw=ccache x86_64-w64-mingw64-gcc
     make-install-args:
       - LDCONFIG=/bin/true
       - UPDATE_DESKTOP_DATABASE=/bin/true
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
-      - type: archive
-        url: https://github.com/ValveSoftware/wine/archive/a4f519f479638bb0b9c5ced9854fa9bb1f457d16.tar.gz
-        sha256: 4db1ef110b0c96790816203d3a4d637b3d035fab864516aee346f86f4e40a2aa
+      - type: git
+        url: https://github.com/ValveSoftware/wine
+        branch: experimental_9.0
+        commit: 23f5e7f8210be5ebb5aba80ea962872cc260a939
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
@@ -114,11 +105,10 @@ modules:
           - type: archive
             url: https://www.cabextract.org.uk/cabextract-1.11.tar.gz
             sha256: b5546db1155e4c718ff3d4b278573604f30dd64c3c5bfd4657cd089b823a3ac6
-
-  - name: zenity
-    buildsystem: meson
-    sources:
-      - type: archive
-        url: https://download.gnome.org/sources/zenity/3.41/zenity-3.41.0.tar.xz
-        sha256: 19b676c3510e22badfcc3204062d432ba537402f5e0ae26128c0d90c954037e1
+      - name: zenity
+        buildsystem: meson
+        sources:
+          - type: archive
+            url: https://download.gnome.org/sources/zenity/3.41/zenity-3.41.0.tar.xz
+            sha256: 19b676c3510e22badfcc3204062d432ba537402f5e0ae26128c0d90c954037e1
 
