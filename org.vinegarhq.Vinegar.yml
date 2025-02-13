@@ -10,7 +10,7 @@ command: vinegar
 finish-args:
   - --share=network
   - --share=ipc
-  - --socket=x11 # Will be removed or replaced with fallback-x11 once Wine is improved
+  - --socket=x11 # WINE's winewayland.drv has broken cursor locking with Studio.
   - --socket=wayland
   - --socket=pulseaudio
   - --device=all # Necessary for controller support (important on Steam Deck)
