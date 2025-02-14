@@ -10,12 +10,20 @@ command: vinegar
 finish-args:
   - --share=network
   - --share=ipc
-  - --socket=x11 # WINE's winewayland.drv has broken cursor locking with Studio.
+  # Valve's Proton doesn't have proper support for winewayland,
+  # but fixes cursor locking on XWayland, so keeping it as
+  # fallback-x11 works, keeping Vinegar using Wayland if possible,
+  # and allowing wine builds - even with broken cursor locking - to use
+  # it's wayland driver.
+  - --socket=fallback-x11
   - --socket=wayland
   - --socket=pulseaudio
-  - --device=all # Necessary for controller support (important on Steam Deck)
-  - --allow=devel # Necessary for VMProtect to function.
+  # Necessary for controller support (important on Steam Deck)
+  - --device=all
+  # Necessary for VMProtect to function.
+  - --allow=devel
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  # Convenience for the user to save their Roblox Studio projects.
   - --filesystem=xdg-documents
   - --env=WINEDLLPATH=/app/dlls/lib
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
