@@ -34,6 +34,7 @@ modules:
       - --without-oss
       - --enable-win64
       - --with-mingw=ccache x86_64-w64-mingw64-gcc
+    install-rule: install-lib
     make-install-args:
       - LDCONFIG=/bin/true
       - UPDATE_DESKTOP_DATABASE=/bin/true
