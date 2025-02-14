@@ -41,7 +41,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/ValveSoftware/wine
-        branch: experimental_9.0
         commit: 23f5e7f8210be5ebb5aba80ea962872cc260a939
       - type: patch
         paths:
