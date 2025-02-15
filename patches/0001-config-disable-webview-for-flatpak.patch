@@ -1,0 +1,28 @@
+From 06f33d02c20fe0928476a4cc766c008747220d33 Mon Sep 17 00:00:00 2001
+From: sewn <sewn@disroot.org>
+Date: Sat, 15 Feb 2025 09:29:09 +0300
+Subject: [PATCH] config: disable webview for flatpak
+
+The bundled WINE within the Flatpak does not have functional WebView,
+and this is to be debugged later.
+---
+ config/config.go | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/config/config.go b/config/config.go
+index 1d7205f..574b19e 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -80,8 +80,7 @@ func Default() *Config {
+ 		Studio: Studio{
+ 			Dxvk:        false,
+ 			DxvkVersion: "2.5.3",
+-			// Runtime 109.0.1518.140 for X64.
+-			WebView:    "322eb0af-cdbc-4a17-a8ca-f0ace4d4adc8",
++			WebView:    "",
+ 			GameMode:   true,
+ 			ForcedGpu:  "prime-discrete",
+ 			Renderer:   "Vulkan",
+-- 
+2.48.1
+
