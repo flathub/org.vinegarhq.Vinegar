@@ -10,12 +10,8 @@ command: vinegar
 finish-args:
   - --share=network
   - --share=ipc
-  # Valve's Proton doesn't have proper support for winewayland,
-  # but fixes cursor locking on XWayland, so keeping it as
-  # fallback-x11 works, keeping Vinegar using Wayland if possible,
-  # and allowing wine builds - even with broken cursor locking - to use
-  # it's wayland driver.
-  - --socket=fallback-x11
+  # https://github.com/flathub/flathub/issues/6171
+  - --socket=x11
   - --socket=wayland
   - --socket=pulseaudio
   # Necessary for controller support (important on Steam Deck)
