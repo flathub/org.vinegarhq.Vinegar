@@ -56,6 +56,8 @@ modules:
         url: https://github.com/vinegarhq/vinegar
         commit: 2af7c7f8e9831556197228e5eb06878135395daa
       - go.mod.yml
+      - type: patch
+        path: patches/0001-config-disable-webview-for-flatpak.patch
 
   - name: gamemode
     buildsystem: meson
