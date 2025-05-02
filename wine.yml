@@ -3,28 +3,13 @@ name: modules
 buildsystem: simple
 build-commands: []
 modules:
-  - name: libusb
-    sources:
-      - type: archive
-        url: https://github.com/libusb/libusb/releases/download/v1.0.27/libusb-1.0.27.tar.bz2
-        sha256: ffaa41d741a8a3bee244ac8e54a72ea05bf2879663c098c82fc5757853441575
-
-  - name: libdrm
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://gitlab.freedesktop.org/mesa/drm.git
-        tag: libdrm-2.4.124
-        commit: 38ec7dbd4df3141441afafe5ac62dfc9df36a77e
-
   - name: wine
-    post-install:
-      - ln -s /app/bin/wine64 /app/bin/wine
     build-options:
       append-path: /usr/lib/sdk/mingw-w64/bin
       env:
         LIBDIR: lib
     config-opts:
+      - --libdir=/app/lib
       - --disable-win16
       - --disable-tests
       - --with-x
@@ -40,24 +25,46 @@ modules:
       - UPDATE_DESKTOP_DATABASE=/bin/true
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
-      - type: git
-        url: https://github.com/ValveSoftware/wine
-        commit: 23f5e7f8210be5ebb5aba80ea962872cc260a939
+      - type: archive
+        url: https://github.com/ValveSoftware/wine/archive/6a4d0d277ae0ae71fc4390bcf20dcb24f1b2d9bc.tar.gz
+        sha256: 9f1874e24957e03a1da8bee9605db6fce9603bbe23c1867a5f957d6be05ee1c5
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
+    modules:
+      - name: libusb
+        sources:
+          - type: archive
+            url: https://github.com/libusb/libusb/releases/download/v1.0.28/libusb-1.0.28.tar.bz2
+            sha256: 966bb0d231f94a474eaae2e67da5ec844d3527a1f386456394ff432580634b29
+      - name: libdrm
+        buildsystem: meson
+        sources:
+          - type: archive
+            url: https://gitlab.freedesktop.org/mesa/drm/-/archive/libdrm-2.4.124/drm-libdrm-2.4.124.tar.gz
+            sha256: 49c077f3938147e7c321fe89255eb189c1be68f6ed0aa36e29d38e3db0e84e08
+      - name: ffmpeg
+        config-opts:
+          - --enable-shared
+          - --disable-static
+          - --disable-everything
+          - --disable-programs
+          - --disable-doc
+          - --disable-inline-asm
+          - --enable-demuxer=matroska
+        sources:
+          - type: archive
+            url: https://github.com/FFmpeg/FFmpeg/archive/a77521cd5d27e955b16e8097eecefc779ffdcb6d.tar.gz
+            sha256: f9b9cbb16c11ee6fa47dacbd4a1a39b464e1f496b569af50d103b4f52e56833a
 
   - name: winetricks
-    no-autogen: true
-    make-args:
-      - PREFIX=/app
-    make-install-args:
-      - PREFIX=/app
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 src/winetricks /app/bin/winetricks
     sources:
-      - type: git
-        url: https://github.com/Winetricks/winetricks.git
-        tag: '20250102'
-        commit: e20b2f6f80d175f96208f51800130db7459dd28c
+      - type: archive
+        url: https://github.com/Winetricks/winetricks/archive/refs/tags/20250102.tar.gz
+        sha256: 24d339806e3309274ee70743d76ff7b965fef5a534c001916d387c924eebe42e
     modules:
       - name: p7zip
         no-autogen: true
@@ -75,40 +82,10 @@ modules:
           - DEST_MAN=/app/share/man
         sources:
           - type: archive
-            url: https://downloads.sourceforge.net/p7zip/p7zip_16.02_src_all.tar.bz2
-            sha256: 5eb20ac0e2944f6cb9c2d51dd6c4518941c185347d4089ea89087ffdd6e2341f
-          - type: patch
-            paths:
-              - patches/p7zip/gcc10-conversion.patch
-              - patches/p7zip/14-Fix-g++-warning.patch
-          - type: shell
-            only-arches:
-              - x86_64
-            commands:
-              - ln -sf makefile.linux_amd64_asm makefile.machine
-          - type: shell
-            only-arches:
-              - i386
-            commands:
-              - ln -sf makefile.linux_x86_asm_gcc_4.X makefile.machine
-        modules:
-          - name: yasm
-            buildsystem: cmake-ninja
-            sources:
-              - type: archive
-                url: https://github.com/yasm/yasm/archive/v1.3.0.tar.gz
-                sha256: f708be0b7b8c59bc1dbe7134153cd2f31faeebaa8eec48676c10f972a1f13df3
-            cleanup:
-              - '*'
+            url: https://github.com/p7zip-project/p7zip/archive/v17.06/p7zip-v17.06.tar.gz
+            sha256: c35640020e8f044b425d9c18e1808ff9206dc7caf77c9720f57eb0849d714cd1
       - name: cabextract
         sources:
           - type: archive
             url: https://www.cabextract.org.uk/cabextract-1.11.tar.gz
             sha256: b5546db1155e4c718ff3d4b278573604f30dd64c3c5bfd4657cd089b823a3ac6
-      - name: zenity
-        buildsystem: meson
-        sources:
-          - type: archive
-            url: https://download.gnome.org/sources/zenity/3.41/zenity-3.41.0.tar.xz
-            sha256: 19b676c3510e22badfcc3204062d432ba537402f5e0ae26128c0d90c954037e1
-

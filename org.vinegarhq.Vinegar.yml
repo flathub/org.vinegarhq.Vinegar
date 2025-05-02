@@ -52,12 +52,10 @@ modules:
     build-commands:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
-      - type: git
-        url: https://github.com/vinegarhq/vinegar
-        commit: 2af7c7f8e9831556197228e5eb06878135395daa
+      - type: archive
+        url: https://github.com/vinegarhq/vinegar/archive/98c1e0ad782101e33493ad09b005eb552b5ffa96.tar.gz
+        sha256: 77a6c2993afcb3af59c58f59ae053345adcb3b2bba8fade29ed721d54bf97e20
       - go.mod.yml
-      - type: patch
-        path: patches/0001-config-disable-webview-for-flatpak.patch
 
   - name: gamemode
     buildsystem: meson
@@ -68,9 +66,8 @@ modules:
     post-install:
       - install -Dm0775 -t /app/bin ../data/gamemoderun
     sources:
-      - type: git
-        url: https://github.com/FeralInteractive/gamemode
-        tag: 1.8.2
-        commit: c54d6d4243b0dd0afcb49f2c9836d432da171a2b
+      - type: archive
+        url: https://github.com/FeralInteractive/gamemode/releases/download/1.8.2/gamemode-1.8.2.tar.xz
+        sha256: 98cd1bcf6101c92fe87f974c7776af23c7e18f29ce6ecfe572b1c39dcde5c181
 
   - wine.yml
