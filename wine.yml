@@ -1,9 +1,12 @@
-# Modified from org.winehq.Wine
+# Modified from org.winehq.Wine, to save space, as only a wow64 wine is required.
 name: modules
 buildsystem: simple
 build-commands: []
 modules:
   - name: wine
+    post-install:
+      # Proton still does not have upstream 8c3f205696571558a6fae42314370fbd7cc14a12
+      - ln -s /app/bin/wine64 /app/bin/wine
     build-options:
       append-path: /usr/lib/sdk/mingw-w64/bin
       env:
