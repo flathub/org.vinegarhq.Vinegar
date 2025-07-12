@@ -34,6 +34,7 @@ modules:
       - type: patch
         paths:
           - patches/wine/loader-prefer-winedllpath.patch
+          - patches/wine/virtualprotectfromapp.patch
     modules:
       - name: libusb
         sources:
