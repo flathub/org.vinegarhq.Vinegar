@@ -4,9 +4,6 @@ buildsystem: simple
 build-commands: []
 modules:
   - name: wine
-    post-install:
-      # Proton still does not have upstream 8c3f205696571558a6fae42314370fbd7cc14a12
-      - ln -s /app/bin/wine64 /app/bin/wine
     build-options:
       append-path: /usr/lib/sdk/mingw-w64/bin
       env:
@@ -29,67 +26,22 @@ modules:
       - INSTALL_PROGRAM_FLAGS=-s
     sources:
       - type: archive
-        url: https://github.com/ValveSoftware/wine/archive/6a4d0d277ae0ae71fc4390bcf20dcb24f1b2d9bc.tar.gz
-        sha256: 9f1874e24957e03a1da8bee9605db6fce9603bbe23c1867a5f957d6be05ee1c5
+        url: https://gitlab.winehq.org/wine/wine/-/archive/wine-10.16/wine-wine-10.16.tar.gz
+        sha256: 90af76e2b1611a017289290202f34f0f53f7bca080b46df3f10efe0615cc8668
+        
+      - type: archive
+        url: https://gitlab.winehq.org/wine/wine-staging/-/archive/v10.16/wine-staging-v10.16.tar.gz
+        sha256: 58d6ab40513e81a9ac66ae6ea050f79210dc34be2a22b1bd4d3161d77d6cea3a
+      - type: shell
+        commands:
+          - staging/patchinstall.py --destdir=. --all
       - type: patch
         paths:
-          - patches/wine/loader-prefer-winedllpath.patch
-          - patches/wine/virtualprotectfromapp.patch
-    modules:
-      - name: libusb
-        sources:
-          - type: archive
-            url: https://github.com/libusb/libusb/releases/download/v1.0.28/libusb-1.0.28.tar.bz2
-            sha256: 966bb0d231f94a474eaae2e67da5ec844d3527a1f386456394ff432580634b29
-      - name: libdrm
-        buildsystem: meson
-        sources:
-          - type: archive
-            url: https://gitlab.freedesktop.org/mesa/libdrm/-/archive/libdrm-2.4.125/libdrm-libdrm-2.4.125.tar.gz
-            sha256: 099c4b230441c52a84126699bf37d9c850f721b05d61aac576c3ffcef05cccea
-      - name: ffmpeg
-        config-opts:
-          - --enable-shared
-          - --disable-static
-          - --disable-everything
-          - --disable-programs
-          - --disable-doc
-          - --disable-inline-asm
-          - --enable-demuxer=matroska
-        sources:
-          - type: archive
-            url: https://github.com/FFmpeg/FFmpeg/archive/a77521cd5d27e955b16e8097eecefc779ffdcb6d.tar.gz
-            sha256: f9b9cbb16c11ee6fa47dacbd4a1a39b464e1f496b569af50d103b4f52e56833a
-
-  - name: winetricks
-    buildsystem: simple
-    build-commands:
-      - install -Dm755 src/winetricks /app/bin/winetricks
-    sources:
-      - type: archive
-        url: https://github.com/Winetricks/winetricks/archive/refs/tags/20250102.tar.gz
-        sha256: 24d339806e3309274ee70743d76ff7b965fef5a534c001916d387c924eebe42e
-    modules:
-      - name: p7zip
-        no-autogen: true
-        make-args:
-          - all2
-          - OPTFLAGS=-O2 -g
-          - DEST_HOME=/app
-          - DEST_BIN=/app/bin
-          - DEST_SHARE=/app/lib/p7zip
-          - DEST_MAN=/app/share/man
-        make-install-args:
-          - DEST_HOME=/app
-          - DEST_BIN=/app/bin
-          - DEST_SHARE=/app/lib/p7zip
-          - DEST_MAN=/app/share/man
-        sources:
-          - type: archive
-            url: https://github.com/p7zip-project/p7zip/archive/v17.06/p7zip-v17.06.tar.gz
-            sha256: c35640020e8f044b425d9c18e1808ff9206dc7caf77c9720f57eb0849d714cd1
-      - name: cabextract
-        sources:
-          - type: archive
-            url: https://www.cabextract.org.uk/cabextract-1.11.tar.gz
-            sha256: b5546db1155e4c718ff3d4b278573604f30dd64c3c5bfd4657cd089b823a3ac6
+          - patches/wine/xfixes-hide-cursor.patch
+          - patches/wine/dont-load-bitmap-only-ttf-fonts.patch
+#    modules:
+#      - name: libusb
+#        sources:
+#          - type: archive
+#            url: https://github.com/libusb/libusb/releases/download/v1.0.29/libusb-1.0.29.tar.bz2
+#            sha256: 5977fc950f8d1395ccea9bd48c06b3f808fd3c2c961b44b0c2e6e29fc3a70a85
