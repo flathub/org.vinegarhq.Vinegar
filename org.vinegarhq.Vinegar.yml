@@ -1,10 +1,9 @@
 app-id: org.vinegarhq.Vinegar
 runtime: org.gnome.Platform
-runtime-version: '47'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
-  - org.freedesktop.Sdk.Extension.mingw-w64
 command: vinegar
 
 finish-args:
@@ -21,26 +20,12 @@ finish-args:
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
   # Convenience for the user to save their Roblox Studio projects.
   - --filesystem=xdg-documents
-  - --env=WINEDLLPATH=/app/dlls/lib
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
-  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin/:/usr/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin/:/usr/lib/extensions/vulkan/gamescope/bin/
-  
+  - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/gamescope/bin
+
 separate-locales: false
 cleanup:
-  - '*.a'
-  - '*.la'
   - /share/man
-  - /bin/function_grep.pl
-  - /bin/widl
-  - /bin/winecpp
-  - /bin/winedump
-  - /bin/wineg++
-  - /bin/winegcc
-  - /bin/winemaker
-  - /bin/wmc
-  - /bin/wrc
-  - /include/wine
-  - /lib/wine/*.def
 
 modules:
   - name: vinegar
@@ -53,21 +38,15 @@ modules:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/archive/98c1e0ad782101e33493ad09b005eb552b5ffa96.tar.gz
-        sha256: 77a6c2993afcb3af59c58f59ae053345adcb3b2bba8fade29ed721d54bf97e20
+        url: https://github.com/vinegarhq/vinegar/archive/refs/tags/v1.9.0.tar.gz
+        sha256: 57cc1124c90a33c436a9f5c3985b16a644f4fba805a24ccd9d5b131532aea572
       - go.mod.yml
 
-  - name: gamemode
-    buildsystem: meson
-    config-opts:
-      - -Dwith-sd-bus-provider=no-daemon
-      - -Dwith-util=false
-      - -Dwith-examples=false
-    post-install:
-      - install -Dm0775 -t /app/bin ../data/gamemoderun
+  - name: wine
+    buildsystem: simple
+    build-commands:
+      - cp -r * /app/
     sources:
       - type: archive
-        url: https://github.com/FeralInteractive/gamemode/releases/download/1.8.2/gamemode-1.8.2.tar.xz
-        sha256: 98cd1bcf6101c92fe87f974c7776af23c7e18f29ce6ecfe572b1c39dcde5c181
-
-  - wine.yml
+        url: https://github.com/vinegarhq/wine-builds/releases/download/10.16/vinegarhq-wine-10.16.tar.xz
+        sha256: aa8913ba045ad7c25bd07670acc130088b026e39e863ec50bbed8a8cabfe84cf
