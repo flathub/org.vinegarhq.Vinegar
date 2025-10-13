@@ -48,15 +48,10 @@
   type: archive
   url: https://proxy.golang.org/github.com/sewnie/rbxweb/@v/v0.0.0-20250923154144-a174c75bba5d.zip
 - dest: vendor/github.com/sewnie/wine
-  sha256: 1315b2b653a729c998041c4278f79ebbec00abfd2123724a9e572e3d66ffa076
+  sha256: 9872487668085459b63df32234d920e547389add48bade58c9c6bdf543b3d113
   strip-components: 3
   type: archive
-  url: https://proxy.golang.org/github.com/sewnie/wine/@v/v0.0.0-20251010112920-4baa27ab7d4d.zip
-- dest: vendor/golang.org/x/sys
-  sha256: 6c87bb94ec328b6d6234ad02cf2813225fe3bd5f8929fe85775ca06e01cfcc78
-  strip-components: 3
-  type: archive
-  url: https://proxy.golang.org/golang.org/x/sys/@v/v0.37.0.zip
+  url: https://proxy.golang.org/github.com/sewnie/wine/@v/v0.0.0-20251014081238-11b6564ffdf5.zip
 - dest: vendor/github.com/google/uuid
   sha256: d0f02f377217f42702e259684e06441edbf5140dddcc34ba9bea56038b38a6ed
   strip-components: 3
@@ -72,6 +67,11 @@
   strip-components: 3
   type: archive
   url: https://proxy.golang.org/github.com/otiai10/mint/@v/v1.6.3.zip
+- dest: vendor/golang.org/x/sys
+  sha256: 6c87bb94ec328b6d6234ad02cf2813225fe3bd5f8929fe85775ca06e01cfcc78
+  strip-components: 3
+  type: archive
+  url: https://proxy.golang.org/golang.org/x/sys/@v/v0.37.0.zip
 - dest: vendor/gopkg.in/natefinch/npipe.v2
   sha256: bbe7d7542b75798de10ce3e99013c65e7d6d9346bb6a2258a1f501b3f1ea472d
   strip-components: 3

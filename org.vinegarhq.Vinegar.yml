@@ -38,8 +38,8 @@ modules:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/archive/refs/tags/v1.9.0.tar.gz
-        sha256: 57cc1124c90a33c436a9f5c3985b16a644f4fba805a24ccd9d5b131532aea572
+        url: https://github.com/vinegarhq/vinegar/archive/f263fd5c4c97a99d893c41c090932c6e167120dd.tar.gz
+        sha256: 7531cd69818287a59e3558237d66e255c81a786e7e0b9867794478a28ac01984
       - go.mod.yml
 
   - name: wine
