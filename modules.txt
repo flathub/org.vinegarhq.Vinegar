@@ -51,7 +51,7 @@ github.com/sewnie/rbxbin
 # github.com/sewnie/rbxweb v0.0.0-20250923154144-a174c75bba5d
 ## explicit; go 1.23.0
 github.com/sewnie/rbxweb
-# github.com/sewnie/wine v0.0.0-20251010112920-4baa27ab7d4d
+# github.com/sewnie/wine v0.0.0-20251014081238-11b6564ffdf5
 ## explicit; go 1.22.0
 github.com/sewnie/wine
 github.com/sewnie/wine/dxvk
