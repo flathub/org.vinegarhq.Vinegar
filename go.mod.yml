@@ -38,10 +38,10 @@
   type: archive
   url: https://proxy.golang.org/github.com/lmittmann/tint/@v/v1.1.2.zip
 - dest: vendor/github.com/sewnie/rbxbin
-  sha256: 0786f565f950cb94a5434ab8568a3fd481b87708cfc59fee9d973660d43cbb8d
+  sha256: df9776e335ce4857de327c159b88de168f2e0353245029301e809dfade2b63cb
   strip-components: 3
   type: archive
-  url: https://proxy.golang.org/github.com/sewnie/rbxbin/@v/v0.0.0-20251006114257-d7e318b45616.zip
+  url: https://proxy.golang.org/github.com/sewnie/rbxbin/@v/v0.0.0-20251014195941-5c5a3767d780.zip
 - dest: vendor/github.com/sewnie/rbxweb
   sha256: 6345aae9c61f50e3270cfdbbffefddbfd407b6e818df56b14f4f01913e8b20b9
   strip-components: 3
