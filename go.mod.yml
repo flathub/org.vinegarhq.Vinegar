@@ -48,10 +48,10 @@
   type: archive
   url: https://proxy.golang.org/github.com/sewnie/rbxweb/@v/v0.0.0-20250923154144-a174c75bba5d.zip
 - dest: vendor/github.com/sewnie/wine
-  sha256: 9872487668085459b63df32234d920e547389add48bade58c9c6bdf543b3d113
+  sha256: 079d636edde42cbd936cf1b04d4af063741fe44a07da0d966c52321c6dde7158
   strip-components: 3
   type: archive
-  url: https://proxy.golang.org/github.com/sewnie/wine/@v/v0.0.0-20251014081238-11b6564ffdf5.zip
+  url: https://proxy.golang.org/github.com/sewnie/wine/@v/v0.0.0-20251014113431-dd1f083b22a5.zip
 - dest: vendor/github.com/google/uuid
   sha256: d0f02f377217f42702e259684e06441edbf5140dddcc34ba9bea56038b38a6ed
   strip-components: 3
