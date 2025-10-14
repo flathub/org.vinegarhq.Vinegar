@@ -45,7 +45,7 @@ github.com/otiai10/copy
 ## explicit; go 1.18
 github.com/otiai10/mint
 github.com/otiai10/mint/mquery
-# github.com/sewnie/rbxbin v0.0.0-20251006114257-d7e318b45616
+# github.com/sewnie/rbxbin v0.0.0-20251014195941-5c5a3767d780
 ## explicit; go 1.23.0
 github.com/sewnie/rbxbin
 # github.com/sewnie/rbxweb v0.0.0-20250923154144-a174c75bba5d
