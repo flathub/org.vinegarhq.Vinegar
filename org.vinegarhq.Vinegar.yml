@@ -9,23 +9,29 @@ command: vinegar
 finish-args:
   - --share=network
   - --share=ipc
+
   # https://github.com/flathub/flathub/issues/6171
   - --socket=x11
   - --socket=wayland
   - --socket=pulseaudio
-  # Necessary for controller support (important on Steam Deck)
+
+  # Necessary for controller support
   - --device=all
+
   # Necessary for VMProtect to function.
   - --allow=devel
-  - --filesystem=xdg-run/app/com.discordapp.Discord:create
-  # Convenience for the user to save their Roblox Studio projects.
-  - --filesystem=xdg-documents
-  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0
-  - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/gamescope/bin
 
-separate-locales: false
-cleanup:
-  - /share/man
+  # Discord Rich presence (other clients untested)
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
+
+  # Give access to Studio's screenshots and autosaves.
+  # Flatpak currently has no support for custom XDG directories
+  # with scoped paths (xdg-documents/Roblox).
+  - --filesystem=xdg-documents
+  - --filesystem=xdg-pictures
+
+  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0
+  - --env=PATH=/app/bin:/usr/bin:/usr/lib/extensions/vulkan/gamescope/bin
 
 modules:
   - name: vinegar
@@ -38,15 +44,6 @@ modules:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/archive/679cd4069a2dc47b584ba9caceb0306e38fe5ed2.tar.gz
-        sha256: 6a16ed000417e7b95c8608cbaf1e19b92e054cb1b3cea1383743a3ab4d974aef
+        url: https://github.com/vinegarhq/vinegar/archive/refs/tags/v1.9.2.tar.gz
+        sha256: bf12737eea461e8c364f20564be5366923a5ac92873d5dc36d0979948b535f84
       - go.mod.yml
-
-  - name: wine
-    buildsystem: simple
-    build-commands:
-      - cp -r * /app/
-    sources:
-      - type: archive
-        url: https://github.com/vinegarhq/wine-builds/releases/download/10.16/vinegarhq-wine-10.16.tar.xz
-        sha256: 00e48196ba16b4af38ed21d707011ea1254e0e41527f007e78e6c5844614cb52
