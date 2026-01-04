@@ -44,6 +44,6 @@ modules:
       - make install GO=$GOROOT/bin/go PREFIX=/app
     sources:
       - type: archive
-        url: https://github.com/vinegarhq/vinegar/archive/refs/tags/v1.9.2.tar.gz
-        sha256: bf12737eea461e8c364f20564be5366923a5ac92873d5dc36d0979948b535f84
+        url: https://github.com/vinegarhq/vinegar/archive/0bb9a6fae9f2220cc276759ca1a86be4ecf60f2f.tar.gz
+        sha256: ef066cdb91a66f6d072d250125efe339ba77d098b95ab84d1ef880f01994626f
       - go.mod.yml
